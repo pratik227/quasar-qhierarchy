@@ -34,7 +34,6 @@
                 columns: [
                     {
                         name: 'label',
-                        required: true,
                         label: 'Label',
                         align: 'left',
                         field: 'label',

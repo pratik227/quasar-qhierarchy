@@ -26,13 +26,11 @@ quasar ext remove qhierarchy
     [
         {
             name: 'label',
-            required: true,
             label: 'Label',
             align: 'left',
             field: 'label',
             // (optional) tell QHierarchy you want this column sortable
-            sortable: true,
-            // If you want different sorting icon
+            sortable: true
         },
         {
             name: 'Description',
