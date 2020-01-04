@@ -1,6 +1,6 @@
 # QHierarchy
 
-> Please note, this is currently a work-in-progress (WIP).
+<!-- Please note, this is currently a work-in-progress (WIP). -->
 
 QHierarchy is a [Quasar App Extension](https://quasar.dev/app-extensions/introduction).  It allows you to display data in hierarchy structure on your page.
 
@@ -33,7 +33,6 @@ quasar ext remove qhierarchy
             // (optional) tell QHierarchy you want this column sortable
             sortable: true,
             // If you want different sorting icon
-            filterable: true
         },
         {
             name: 'Description',
@@ -41,7 +40,6 @@ quasar ext remove qhierarchy
             sortable: true,
             field: 'description',
             align: 'center',
-            filterable: false
         },
         {
             name: 'note',
@@ -49,7 +47,6 @@ quasar ext remove qhierarchy
             sortable: true,
             field: 'note',
             align: 'left',
-            filterable: false
         }
     ],
 

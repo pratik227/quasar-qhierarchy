@@ -32,25 +32,21 @@ quasar ext remove qhierarchy
                 align: 'left',
                 field: 'label',
                 // (optional) tell QHierarchy you want this column sortable
-                sortable: true,
-                // If you want different sorting icon
-                filterable: true
+                sortable: true
             },
             {
                 name: 'Description',
                 label: 'Description',
                 sortable: true,
                 field: 'description',
-                align: 'center',
-                filterable: false
+                align: 'center'
             },
             {
                 name: 'note',
                 label: 'Note',
                 sortable: true,
                 field: 'note',
-                align: 'left',
-                filterable: false
+                align: 'left'
             }
         ],
 
