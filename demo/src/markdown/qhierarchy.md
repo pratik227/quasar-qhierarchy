@@ -94,7 +94,7 @@ can be found [here](https://quasar-qhierarchy.surge.sh/docs).
 
 # Examples
 
-can be found [here](https://quasar-qhierarchy.surge.sh/examples).
+can be found [here](https://quasar-qhierarchy.surge.sh/docs).
 
 # Demo (source) Project.
 
