@@ -90,11 +90,11 @@ can be found [here](https://github.com/pratik227/quasar-qhierarchy).
 
 # Docs
 
-can be found [here](https://quasar-qhierarchy.surge.sh/docs).
+can be found [here](https://quasar-qhierarchy.surge.sh).
 
 # Examples
 
-can be found [here](https://quasar-qhierarchy.surge.sh/docs).
+can be found [here](https://quasar-qhierarchy.surge.sh).
 
 # Demo (source) Project.
 
