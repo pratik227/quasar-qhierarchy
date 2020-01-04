@@ -1,0 +1,31 @@
+{
+  "name": "demo",
+  "version": "0.0.1",
+  "description": "A Quasar Framework app",
+  "productName": "QHierarchy Demo",
+  "cordovaId": "org.cordova.quasar.app",
+  "capacitorId": "",
+  "author": "pratikpatelpp802@gmail.com",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.0.0",
+    "quasar": "^1.0.0",
+    "quasar-app-extension-qhierarchy": "file:../app-extension"
+  },
+  "devDependencies": {
+    "@quasar/app": "^1.0.0",
+    "@quasar/quasar-app-extension-qmarkdown": "^1.0.10",
+    "quasar-app-extension-json-api-viewer": "^1.0.0"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "browserslist": [
+    "last 1 version, not dead, ie >= 11"
+  ]
+}
