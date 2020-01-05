@@ -152,3 +152,35 @@ export default {
   }
 }
 </script>
+
+<style>
+
+  .page-header {
+    position: relative !important;
+    color: #fff !important;;
+    text-align: center !important;;
+    background-color: #00f !important;;
+    background-image: linear-gradient(120deg, #00f, red) !important;
+  }
+
+
+  .project-name {
+    font-size: 4.25rem
+  }
+
+  .byline {
+    left: 0
+  }
+
+  btn {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: hsla(0, 0%, 100%, 0.7);
+    background-color: hsla(0, 0%, 100%, 0.08);
+    border-color: hsla(0, 0%, 100%, 0.2);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.3rem;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s
+  }
+</style>
