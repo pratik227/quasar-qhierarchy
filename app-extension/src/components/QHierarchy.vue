@@ -36,7 +36,7 @@
 <script>
     export default {
         name: "QHierarchy",
-        props: ['data', 'columns', 'separator', 'dense', 'dark', 'flat', 'bordered', 'square','classes'],
+        props: ['data', 'columns', 'separator', 'dense', 'dark', 'flat', 'bordered', 'square','classes','defaultExpandAll'],
         data: function () {
             return {
                 leftDrawerOpen: false,
@@ -44,7 +44,8 @@
                 selectedRowID: {},
                 itemId: null,
                 temp_data: [],
-                temp_index:1
+                temp_index:1,
+                first_call:false
 
             }
         },
@@ -56,7 +57,7 @@
             }
         },
         methods: {
-            recursive(obj, newObj, level, itemId, isExpend) {
+            recursive(obj, newObj, level, itemId, isExpend,first_call) {
                 let vm = this;
 
                 obj.forEach(function (o) {
@@ -67,12 +68,15 @@
                         o.sorted = false;
                         o['_index'] = vm.temp_index;
                         vm.temp_index = vm.temp_index + 1;
+                        if(first_call){
+                            o.expend = true
+                        }
                         newObj.push(o);
                         if (o._index == itemId) {
                             o.expend = isExpend;
                         }
                         if (o.expend == true) {
-                            vm.recursive(o.children, newObj, o.level + 1, itemId, isExpend);
+                            vm.recursive(o.children, newObj, o.level + 1, itemId, isExpend,first_call);
                         }
                     } else {
                         o.level = level;
@@ -101,7 +105,7 @@
             toggle(item) {
                 let vm = this;
                 vm.itemId = item._index;
-
+                console.log(item)
                 item.leaf = false;
                 //show  sub items after click on + (more)
                 if (
@@ -110,19 +114,19 @@
                     item.children != undefined
                 ) {
                     if (item.children.length != 0) {
-                        vm.recursive(item.children, [], item.level + 1, item._index, item.expend);
+                        vm.recursive(item.children, [], item.level + 1, item._index, item.expend,false);
                     }
                 }
 
 
                 if (item.expend == true && item.children != undefined) {
                     let __subindex = 0;
+                    console.log("Hi")
                     item.children.forEach(function (o) {
                         o.expend = undefined;
                         vm.setUndefined(o)
                     });
 
-                    console.log(item);
                     vm.$set(item, "expend", undefined);
                     vm.$set(item, "leaf", false);
                     vm.itemId = null;
@@ -212,12 +216,18 @@
                 let newObj = [];
                 this.temp_data = [];
                 vm.temp_index = 1;
-                vm.recursive(vm.data, newObj, 0, vm.itemId, vm.isExpanded);
+                vm.recursive(vm.data, newObj, 0, vm.itemId, vm.isExpanded,vm.first_call);
+                vm.first_call = false;
                 return newObj;
             },
             hasDefaultSlot() {
                 return this.$scopedSlots.hasOwnProperty("body");
             },
+        },
+        mounted(){
+            if(this.defaultExpandAll) {
+                this.first_call = true
+            }
         }
     }
 </script>

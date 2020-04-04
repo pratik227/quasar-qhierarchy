@@ -127,9 +127,12 @@
 
     <section class="page-header q-pa-none q-ma-none">
       <div class="text-h1 project-name">QHierarchy</div>
+     <div class="donate"><a :href="donateUrl" target="_blank" title="Donate"><i class="fas fa-heart" style="color: blue"></i></a></div>
+
       <q-btn type="a" href="https://github.com/pratik227/quasar-qhierarchy" target="_blank" class="btn q-mr-sm" label="View on GitHub" no-caps />
       <q-btn to="/docs" class="btn q-mr-sm" label="Docs" no-caps/>
       <q-btn to="/examples" class="btn" label="Examples" no-caps/>
+      <q-btn type="a" :href="donateUrl" target="_blank" class="btn q-ml-sm" label="Donate" no-caps />
 
       <div class="byline q-mt-md q-pb-md">A Quasar Framework Component and App Extension
         Created and maintained by Pratik Patel <a href="https://twitter.com/@pratikPatel_227" target="_blank"
@@ -147,7 +150,9 @@ export default {
 
   data () {
     return {
-      leftDrawerOpen: true
+      leftDrawerOpen: true,
+      donateUrl:'https://github.com/sponsors/pratik227',
+
     }
   }
 }
@@ -183,4 +188,12 @@ export default {
     border-radius: 0.3rem;
     transition: color 0.2s, background-color 0.2s, border-color 0.2s
   }
+
+  .donate {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    opacity: 0.5;
+  }
+
 </style>

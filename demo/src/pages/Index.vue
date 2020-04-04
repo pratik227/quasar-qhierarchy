@@ -4,6 +4,7 @@
     <json-api-viewer
       title="QHierarchy API"
       :json="json"
+      starting-inner-tab="style"
     />
 
     <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
@@ -42,6 +43,14 @@
 
                         },
 
+                        "default-expand-all": {
+                            "extends": "dark",
+                            "type": "boolean",
+                            "desc": "Allow the QHierarchy to have all it's nodes expanded, when first rendered",
+                            "category": "behaviour"
+
+                        },
+
                         "flat": {
                             "extends": "flat",
                             "type": "boolean",
@@ -76,18 +85,18 @@
                     "slots": {
                         "body": {
                             "extends": "default",
-                            "desc":"Slot to define how a body row looks like; Suggestion: tr + td"
+                            "desc": "Slot to define how a body row looks like; Suggestion: tr + td"
                         }
                     },
                     "General": {
                         "data": {
                             "type": "Array",
-                            "desc":"Rows of data to display",
+                            "desc": "Rows of data to display",
                             "examples": [":data=\"myData\""],
                         },
                         "columns": {
                             "type": "Array",
-                            "desc":"The column definitions (Array of Objects)\n",
+                            "desc": "The column definitions (Array of Objects)\n",
                             "examples": [":columns=\"tableColumns\""],
                         }
                     }

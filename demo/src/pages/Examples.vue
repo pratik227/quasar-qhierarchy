@@ -4,6 +4,7 @@
       <basic :tag-parts="getTagParts(require('!!raw-loader!../examples/Basic.vue').default)"></basic>
       <custom :tag-parts="getTagParts(require('!!raw-loader!../examples/Custom.vue').default)"></custom>
       <slot-demo :tag-parts="getTagParts(require('!!raw-loader!../examples/SlotDemo.vue').default)"></slot-demo>
+      <default-expand-all :tag-parts="getTagParts(require('!!raw-loader!../examples/DefaultExpandAll.vue').default)"></default-expand-all>
     </div>
     </q-page>
 </template>
@@ -13,11 +14,12 @@
     import Custom from "../examples/Custom";
     import SlotDemo from "../examples/SlotDemo";
     import { getTagParts } from '@quasar/quasar-ui-qmarkdown'
+    import DefaultExpandAll from "../examples/DefaultExpandAll";
 
 
     export default {
         name: "Examples",
-        components: {SlotDemo, Custom, Basic},
+        components: {DefaultExpandAll, SlotDemo, Custom, Basic},
         data() {
             return {
                 filterString: 'Sub-Value Test',

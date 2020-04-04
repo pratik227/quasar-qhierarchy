@@ -12,6 +12,12 @@
       "desc": "Notify the component that the background is a dark color",
       "category": "style"
     },
+    "default-expand-all": {
+      "extends": "dark",
+      "type": "boolean",
+      "desc": "Allow the QHierarchy to have all it's nodes expanded, when first rendered",
+      "category": "behaviour"
+    },
     "flat": {
       "extends": "flat",
       "type": "boolean",
