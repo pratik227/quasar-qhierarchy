@@ -105,7 +105,6 @@
             toggle(item) {
                 let vm = this;
                 vm.itemId = item._index;
-                console.log(item)
                 item.leaf = false;
                 //show  sub items after click on + (more)
                 if (
@@ -121,7 +120,6 @@
 
                 if (item.expend == true && item.children != undefined) {
                     let __subindex = 0;
-                    console.log("Hi")
                     item.children.forEach(function (o) {
                         o.expend = undefined;
                         vm.setUndefined(o)
