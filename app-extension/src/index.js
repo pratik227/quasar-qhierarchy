@@ -20,10 +20,8 @@ module.exports = function (api) {
   // extend quasar.conf
   api.registerDescribeApi('QHierarchy', './components/QHierarchy.json')
 
-  api.compatibleWith('quasar', '^1.5.11')
-  api.compatibleWith('@quasar/app', '^1.4.3 || ^2.0.0')
+  api.compatibleWith('quasar', '^2.0.0-beta.1')
+  api.compatibleWith('@quasar/app', '^3.0.0-beta.1')
 
   api.extendQuasarConf(extendWithComponent)
 };
-
-

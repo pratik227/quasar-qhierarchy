@@ -48,7 +48,7 @@ quasar ext remove qhierarchy
         }
     ],
 
-     
+
 # Defining Data
 
      [
@@ -89,11 +89,15 @@ can be found [here](https://github.com/pratik227/quasar-qhierarchy).
 
 # Docs
 
-can be found [here](https://next-quasar-qhierarchy.netlify.app/).
+can be found [here](https://quasar-qhierarchy.netlify.com).
+
+# Examples
+
+can be found [here](https://quasar-qhierarchy.netlify.com/examples).
 
 # Demo (source) Project.
 
-can be found [here](https://github.com/pratik227/quasar-qhierarchy/tree/next/demo).
+can be found [here](https://github.com/pratik227/quasar-qhierarchy/tree/master/demo).
 
 
 # Support

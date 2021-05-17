@@ -1,24 +1,5 @@
 <template>
-  <q-hierarchy dense :columns="columns" :data="data" :classes="classes" :dark="dark">
-    <template v-slot:body="props">
-      <td data-th="Name">
-        <div v-bind:style="props.setPadding(props.item)"
-             :class="props.iconName(props.item)!='done'?'q-pl-lg':''">
-          <q-btn @click="props.toggle(props.item)" v-if="props.iconName(props.item)!='done'"
-                 :icon="props.iconName(props.item)" flat
-                 dense>
-          </q-btn>
-          <span class="q-ml-sm">{{ props.item.label }}</span>
-        </div>
-      </td>
-      <td class="text-center">{{ props.item.description }}</td>
-      <td class="text-left">
-        <q-chip color="lime-9" v-if="props.item.note" square size="sm" class="text-white">
-          {{ props.item.note }}
-        </q-chip>
-      </td>
-    </template>
-  </q-hierarchy>
+  <q-hierarchy dense :columns="columns" :data="data" :classes="classes" :dark="dark" :default-expand-all="default_expand_all"></q-hierarchy>
 </template>
 
 <script>
@@ -119,7 +100,7 @@ const data = [
   }
 ];
 export default defineComponent({
-  name: "SlotDemo",
+  name: "ExpandAll",
   setup() {
     return {
       columns,
@@ -127,6 +108,7 @@ export default defineComponent({
       classes: ref('bg-deep-purple-10'),
       dense: ref(false),
       dark: ref(true),
+      default_expand_all: ref(true),
     }
   }
 })

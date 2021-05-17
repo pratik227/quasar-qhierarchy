@@ -1,7 +1,7 @@
 {
   "name": "quasar-app-extension-qhierarchy",
-  "version": "0.0.5",
-  "description": "",
+  "version": "1.0.0-alpha.1",
+  "description": "A Quasar App Extension",
   "author": "pratikpatelpp802@gmail.com",
   "license": "MIT",
   "main": "src/index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/pratik227/quasar-qhierarchy"
   },
   "bugs": "",
   "homepage": "",

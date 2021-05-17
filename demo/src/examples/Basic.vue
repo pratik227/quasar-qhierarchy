@@ -1,139 +1,111 @@
 <template>
-  <q-card :class="!$q.dark.isActive?'my-lg q-pa-md q-ma-sm bg-grey-2':'my-lg q-pa-md q-ma-sm bg-grey-8'">
-    <q-toolbar>
-      <q-ribbon
-        position="left"
-        color="rgba(0,0,0,.58)"
-        background-color="#c0c0c0"
-        leaf-color="#a0a0a0"
-        leaf-position="bottom"
-        decoration="rounded-out"
-      >
-        <q-toolbar-title
-          class="example-title"
-          style="padding: 5px 20px;"
-        ><span class="ellipsis">Basic</span></q-toolbar-title>
-      </q-ribbon>
-    </q-toolbar>
-    <q-card-section class="q-pb-sm">
-      <code-tabs :tagParts="tagParts"></code-tabs>
-    </q-card-section>
-    <q-card-section>
-      <q-hierarchy :columns="columns" :data="data"></q-hierarchy>
-    </q-card-section>
-  </q-card>
+  <q-hierarchy :columns="columns" :data="data"></q-hierarchy>
 </template>
 
 <script>
-    import CodeTabs from "../components/CodeTabs";
-    export default {
-        name: "Basic",
-        components: {CodeTabs},
-        data() {
-            return {
-                columns: [
-                    {
-                        name: 'label',
-                        label: 'Label',
-                        align: 'left',
-                        field: 'label',
-                        // (optional) tell QHierarchy you want this column sortable
-                        sortable: true
-                    },
-                    {
-                        name: 'Description',
-                        label: 'Description',
-                        sortable: true,
-                        field: 'description',
-                        align: 'center'
-                    },
-                    {
-                        name: 'note',
-                        label: 'Note',
-                        sortable: true,
-                        field: 'note',
-                        align: 'left'
-                    }
-                ],
-                data: [
-                    {
-                        label: "Node 1",
-                        description: "Node 1 description",
-                        note: "Node 1 note",
-                        // id: 1,
-                        children: [
-                            {
-                                label: "Node 1.1",
-                                description: "Node 1.1 description",
-                                note: "Node 1.1 note",
-                                // id: 2
-                            },
-                            {
-                                label: "Node 1.2",
-                                description: "Node 1.2 description",
-                                note: "Node 1.2 note",
-                                // id: 3,
-                                children: [
-                                    {
-                                        label: "Node 1.2.1",
-                                        description: "Node 1.2.1 description",
-                                        note: "Node 1.2.1 note",
-                                        // id: 4
-                                    },
-                                    {
-                                        label: "Node 1.2.2",
-                                        description: "Node 1.2.2 description",
-                                        note: "Node 1.2.2 note",
-                                        // id: 5
-                                    }
-                                ],
-                            }
-                        ],
-                    },
-                    {
-                        label: "Node 2",
-                        description: "Node 2 description",
-                        note: "Node 2 note",
-                        // id: 6,
-                        children: [
-                            {
-                                label: "Node 2.1",
-                                description: "Node 2.1 description",
-                                note: "Node 2.1 note",
-                                // id: 7,
-                                children: [
-                                    {
-                                        label: "Node 2.1.1",
-                                        description: "Node 2.1.1 description",
-                                        note: "Node 2.1.1 note",
-                                        // id: 8
-                                    },
-                                    {
-                                        label: "Node 2.1.2",
-                                        description: "Node 2.1.2 description",
-                                        note: "Node 2.1.2 note",
-                                        // id: 9
-                                    }
-                                ],
-                            },
-                            {
-                                label: "Node 2.2",
-                                description: "Node 2.2 description",
-                                note: "Node 2.2 note",
-                                // id: 10
-                            }
-                        ],
-                    }
-                ],
-            }
-        },
-        props: {
-            tagParts: {
-                type: Object,
-                default: () => {
-                }
-            }
-        },
+import {defineComponent, ref} from 'vue'
 
+const columns = [
+  {
+    name: 'label',
+    label: 'Label',
+    align: 'left',
+    field: 'label',
+    // (optional) tell QHierarchy you want this column sortable
+    sortable: true
+  },
+  {
+    name: 'Description',
+    label: 'Description',
+    sortable: true,
+    field: 'description',
+    align: 'center'
+  },
+  {
+    name: 'note',
+    label: 'Note',
+    sortable: true,
+    field: 'note',
+    align: 'left'
+  }
+];
+const data = [
+  {
+    label: "Node 1",
+    description: "Node 1 description",
+    note: "Node 1 note",
+    // id: 1,
+    children: [
+      {
+        label: "Node 1.1",
+        description: "Node 1.1 description",
+        note: "Node 1.1 note",
+        // id: 2
+      },
+      {
+        label: "Node 1.2",
+        description: "Node 1.2 description",
+        note: "Node 1.2 note",
+        // id: 3,
+        children: [
+          {
+            label: "Node 1.2.1",
+            description: "Node 1.2.1 description",
+            note: "Node 1.2.1 note",
+            // id: 4
+          },
+          {
+            label: "Node 1.2.2",
+            description: "Node 1.2.2 description",
+            note: "Node 1.2.2 note",
+            // id: 5
+          }
+        ],
+      }
+    ],
+  },
+  {
+    label: "Node 2",
+    description: "Node 2 description",
+    note: "Node 2 note",
+    // id: 6,
+    children: [
+      {
+        label: "Node 2.1",
+        description: "Node 2.1 description",
+        note: "Node 2.1 note",
+        // id: 7,
+        children: [
+          {
+            label: "Node 2.1.1",
+            description: "Node 2.1.1 description",
+            note: "Node 2.1.1 note",
+            // id: 8
+          },
+          {
+            label: "Node 2.1.2",
+            description: "Node 2.1.2 description",
+            note: "Node 2.1.2 note",
+            // id: 9
+          }
+        ],
+      },
+      {
+        label: "Node 2.2",
+        description: "Node 2.2 description",
+        note: "Node 2.2 note",
+        // id: 10
+      }
+    ],
+  }
+];
+export default defineComponent({
+  name: "Basic",
+  setup() {
+    return {
+      columns,
+      data
     }
+  }
+})
 </script>

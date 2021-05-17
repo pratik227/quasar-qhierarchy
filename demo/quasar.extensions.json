@@ -1,9 +1,3 @@
 {
-  "qhierarchy": {},
-  "@quasar/qmarkdown": {
-    "import_md": true,
-    "import_vmd": true
-  },
-  "json-api-viewer": {},
-  "@quasar/qribbon": {}
+  "qhierarchy": {}
 }

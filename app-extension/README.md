@@ -1,112 +1,30 @@
-# QHierarchy
+Quasar App Extension qhierarchy
+===
 
+_Be sure to change this readme as appropriate for your app extension._
 
-QHierarchy is a [Quasar App Extension](https://quasar.dev/app-extensions/introduction).  It allows you to display data in hierarchy structure on your page.
+_Think about the organization of this file and how the information will be beneficial to the user._
 
-## Install
+> Add a short description of your App Extension. What does it do? How is it beneficial? Why would someone want to use it?
 
-To add this App Extension to your Quasar application, run the following (in your Quasar app folder):
+A Quasar App Extension
 
+# Install
 ```bash
 quasar ext add qhierarchy
 ```
+Quasar CLI will retrieve it from the NPM registry and install the extension to your project.
 
 # Uninstall
-To remove this App Extension from your Quasar application, run the following (in your Quasar app folder):
-
-```
+```bash
 quasar ext remove qhierarchy
 ```
 
+# Info
+> Add longer information here that will help the user of your app extension.
 
-# Defining the columns
+# Other Info
+> Add other information that's not as important to know
 
-
-
-    [
-        {
-            name: 'label',
-            label: 'Label',
-            align: 'left',
-            field: 'label',
-            // (optional) tell QHierarchy you want this column sortable
-            sortable: true
-        },
-        {
-            name: 'Description',
-            label: 'Description',
-            sortable: true,
-            field: 'description',
-            align: 'center',
-        },
-        {
-            name: 'note',
-            label: 'Note',
-            sortable: true,
-            field: 'note',
-            align: 'left',
-        }
-    ],
-        
-# Defining Data
-
-     [
-            {
-                label: "Node 1",
-                description: "Node 1 description",
-                note: "Node 1 note",
-                children: [
-                    {
-                        label: "Node 1.1",
-                        description: "Node 1.1 description",
-                        note: "Node 1.1 note",
-                    },
-                    {
-                        label: "Node 1.2",
-                        description: "Node 1.2 description",
-                        note: "Node 1.2 note",
-                        children: [
-                            {
-                                label: "Node 1.2.1",
-                                description: "Node 1.2.1 description",
-                                note: "Node 1.2.1 note",
-                            },
-                            {
-                                label: "Node 1.2.2",
-                                description: "Node 1.2.2 description",
-                                note: "Node 1.2.2 note",
-                            }
-                        ],
-                    }
-                ],
-        }
-     ]
-
-# Source
-
-can be found [here](https://github.com/pratik227/quasar-qhierarchy).
-
-# Docs
-
-can be found [here](https://quasar-qhierarchy.surge.sh).
-
-# Examples
-
-can be found [here](https://quasar-qhierarchy.surge.sh).
-
-# Demo (source) Project.
-
-can be found [here](https://github.com/pratik227/quasar-qhierarchy/tree/master/demo).
-
-
-# Support
-
-If this helped you in any way, you can contribute to this project for long term survival by supporting me:
-
-### [💜 Support my open-source work on GitHub](https://github.com/sponsors/pratik227)
-
-Be sure to check out my sponsor page.
-
-(GitHub currently **doubles your support**! So if you support me with $10/mo, I will get $20 instead! They're alchemists 😉)
-
-Thank you so much!!!
+# Donate
+If you appreciate the work that went into this App Extension, please consider [donating to Quasar](https://donate.quasar.dev).
