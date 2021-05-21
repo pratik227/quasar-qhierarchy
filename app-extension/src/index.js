@@ -6,22 +6,24 @@
  * API: https://github.com/quasarframework/quasar/blob/master/app/lib/app-extension/IndexAPI.js
  */
 
-function extendWithComponent (conf) {
-  // make sure boot file is registered
-  conf.boot.push('~quasar-app-extension-qhierarchy/src/boot/index.js')
+function extendConf (conf) {
+  // register our boot file
+  conf.boot.push('~quasar-app-extension-qhierarchy/src/boot/register.js')
 
-  // make sure boot file transpiles
+  // make sure app extension files & ui package gets transpiled
   conf.build.transpileDependencies.push(/quasar-app-extension-qhierarchy[\\/]src/)
-  console.log(` App Extension (qhierarchy) Info: 'Adding qhierarchy boot reference to your quasar.conf.js'`)
-
 }
 
 module.exports = function (api) {
-  // extend quasar.conf
-  api.registerDescribeApi('QHierarchy', './components/QHierarchy.json')
+  // Quasar compatibility check; you may need
+  // hard dependencies, as in a minimum version of the "quasar"
+  // package or a minimum version of "@quasar/app" CLI
+  api.compatibleWith('quasar', '^2.0.0-beta.12')
+  api.compatibleWith('@quasar/app', '^3.0.0-beta.12')
 
-  api.compatibleWith('quasar', '^2.0.0-beta.1')
-  api.compatibleWith('@quasar/app', '^3.0.0-beta.1')
+  // Uncomment the line below if you provide a JSON API for your component
+  // api.registerDescribeApi('QHierarchy', '~quasar-ui-qhierarchy/src/components/QHierarchy.json')
 
-  api.extendQuasarConf(extendWithComponent)
-};
+  // We extend /quasar.conf.js
+  api.extendQuasarConf(extendConf)
+}

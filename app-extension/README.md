@@ -1,19 +1,19 @@
-Quasar App Extension qhierarchy
-===
-
-_Be sure to change this readme as appropriate for your app extension._
-
-_Think about the organization of this file and how the information will be beneficial to the user._
+# Quasar App Extension qhierarchy
 
 > Add a short description of your App Extension. What does it do? How is it beneficial? Why would someone want to use it?
 
-A Quasar App Extension
+[![npm](https://img.shields.io/npm/v/quasar-app-extension-qhierarchy.svg?label=quasar-app-extension-qhierarchy)](https://www.npmjs.com/package/quasar-app-extension-qhierarchy)
+[![npm](https://img.shields.io/npm/dt/quasar-app-extension-qhierarchy.svg)](https://www.npmjs.com/package/quasar-app-extension-qhierarchy)
 
 # Install
 ```bash
 quasar ext add qhierarchy
 ```
-Quasar CLI will retrieve it from the NPM registry and install the extension to your project.
+Quasar CLI will retrieve it from NPM and install the extension.
+
+## Prompts
+
+> If your app extension uses prompts, explain them here, otherwise remove this section and remove prompts.js file.
 
 # Uninstall
 ```bash
@@ -28,3 +28,6 @@ quasar ext remove qhierarchy
 
 # Donate
 If you appreciate the work that went into this App Extension, please consider [donating to Quasar](https://donate.quasar.dev).
+
+# License
+MIT (c) pratikpatelpp802@gmail.com

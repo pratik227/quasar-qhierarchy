@@ -5,15 +5,15 @@
   "author": "pratikpatelpp802@gmail.com",
   "license": "MIT",
   "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"No test specified\" && exit 0"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pratik227/quasar-qhierarchy"
+    "url": ""
   },
   "bugs": "",
   "homepage": "",
+  "dependencies": {
+    "quasar-ui-qhierarchy": "0.0.1"
+  },
   "engines": {
     "node": ">= 8.9.0",
     "npm": ">= 5.6.0",
