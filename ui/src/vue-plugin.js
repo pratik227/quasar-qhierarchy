@@ -1,11 +1,10 @@
 import QHierarchy from './components/QHierarchy'
 
-
-const version = __UI_VERSION__
+import pkg from '../package.json'
+const { version } = pkg
 
 function install (app) {
   app.component(QHierarchy.name, QHierarchy)
-
 }
 
 export {
