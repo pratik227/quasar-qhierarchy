@@ -1,4 +1,4 @@
-import QHierarchy from './components/QHierarchy'
+import QHierarchy from 'components/QHierarchy'
 
 import pkg from '../package.json'
 const { version } = pkg
