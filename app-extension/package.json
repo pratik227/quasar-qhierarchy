@@ -7,10 +7,21 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/pratik227/quasar-qhierarchy.git"
   },
-  "bugs": "",
-  "homepage": "",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/pratik227"
+  },
+  "homepage": "https://github.com/pratik227/quasar-qhierarchy",
+  "keywords": [
+    "quasar",
+    "quasarframework",
+    "app",
+    "app extension",
+    "extension"
+  ],
+  "bugs": "https://github.com/pratik227/quasar-qhierarchy/issues",
   "dependencies": {
     "quasar-ui-qhierarchy": "latest"
   },
