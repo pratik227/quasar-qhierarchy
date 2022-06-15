@@ -142,7 +142,7 @@ export default defineComponent({
         col.sortDirection = "desc";
         col.arrow_downward = 'arrow_downward';
       } else {
-        this.sort_recursive(this.data, col, ref(false));
+        this.sort_recursive(this.data, col, false);
         col.sortDirection = "asc";
       }
       col.sorted = true;
