@@ -6,24 +6,30 @@
  * API: https://github.com/quasarframework/quasar/blob/master/app/lib/app-extension/IndexAPI.js
  */
 
-function extendConf (conf) {
-  // register our boot file
-  conf.boot.push('~quasar-app-extension-qhierarchy/src/boot/register.js')
+function extendConf(conf, api) {
+    // register our boot file
+    conf.boot.push('~quasar-app-extension-qhierarchy/src/boot/register.js')
 
-  // make sure app extension files & ui package gets transpiled
-  conf.build.transpileDependencies.push(/quasar-app-extension-qhierarchy[\\/]src/)
+    if (api.hasVite !== true) {
+        // make sure app extension files & ui package gets transpiled
+        conf.build.transpileDependencies.push(/quasar-app-extension-qhierarchy[\\/]src/)
+    }
 }
 
 module.exports = function (api) {
-  // Quasar compatibility check; you may need
-  // hard dependencies, as in a minimum version of the "quasar"
-  // package or a minimum version of "@quasar/app" CLI
-  api.compatibleWith('quasar', '^2.0.0-beta.12')
-  api.compatibleWith('@quasar/app', '^3.0.0-beta.12')
+    // Quasar compatibility check; you may need
+    // hard dependencies, as in a minimum version of the "quasar"
+    // package or a minimum version of "@quasar/app" CLI
+    api.compatibleWith('quasar', '^2.0.0')
 
-  // Uncomment the line below if you provide a JSON API for your component
-  // api.registerDescribeApi('QHierarchy', '~quasar-ui-qhierarchy/src/components/QHierarchy.json')
+    if (api.hasVite === true) {
+        api.compatibleWith('@quasar/app-vite', '^1.0.0-alpha.0')
+    } else {
+        api.compatibleWith('@quasar/app', '^3.0.0')
+    }
+    // Uncomment the line below if you provide a JSON API for your component
+    // api.registerDescribeApi('QHierarchy', '~quasar-ui-qhierarchy/src/components/QHierarchy.json')
 
-  // We extend /quasar.conf.js
-  api.extendQuasarConf(extendConf)
+    // We extend /quasar.conf.js
+    api.extendQuasarConf(extendConf)
 }
