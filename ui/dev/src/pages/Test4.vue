@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pa-sm">
-    <q-hierarchy dense :columns="columns" :data="data" :classes="classes" :dark="dark">
+    <q-hierarchy dense :columns="columns" :data="data" @sort_column="test($event)" :classes="classes" :dark="dark">
       <template v-slot:body="props">
         <td data-th="Name">
           <div v-bind:style="props.setPadding(props.item)"
@@ -129,6 +129,11 @@ export default defineComponent({
       classes: ref('bg-deep-purple-10'),
       dense: ref(false),
       dark: ref(true),
+    }
+  },
+  methods:{
+    test(data){
+      console.log(data)
     }
   }
 })

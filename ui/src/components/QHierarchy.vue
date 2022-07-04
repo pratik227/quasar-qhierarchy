@@ -146,6 +146,7 @@ export default defineComponent({
         col.sortDirection = "asc";
       }
       col.sorted = true;
+      this.$emit('sort_column', col)
       this.resetSorting(col);
     },
     sort_recursive(elements, col, descending) {
