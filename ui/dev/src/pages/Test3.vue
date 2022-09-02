@@ -15,14 +15,16 @@ const columns = [
     align: 'left',
     field: 'label',
     // (optional) tell QHierarchy you want this column sortable
-    sortable: true
+    sortable: true,
+    filterable: true
   },
   {
     name: 'Description',
     label: 'Description',
     sortable: true,
     field: 'description',
-    align: 'center'
+    align: 'center',
+    filterable: true
   },
   {
     name: 'note',
@@ -43,7 +45,7 @@ const data = [
         label: "Node 1.1",
         description: "Node 1.1 description",
         note: "Node 1.1 note",
-        children:null
+        children: null
         // id: 2
       },
       {

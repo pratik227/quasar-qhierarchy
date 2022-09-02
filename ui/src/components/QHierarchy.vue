@@ -1,5 +1,7 @@
 <template>
     <span>
+            <q-input outlined v-model="filter" label="Outlined" />
+
         <q-markup-table :separator="separator" :dense="dense" :dark="dark" :flat="flat" :bordered="bordered"
                         :square="square" :class="classes">
             <thead>
@@ -48,7 +50,8 @@ export default defineComponent({
       itemId: ref(null),
       temp_data: ref([]),
       temp_index: ref(1),
-      first_call: ref(false)
+      first_call: ref(false),
+      filter: ref('')
     }
   }, watch: {
     selectedIDRow: function (val) {
@@ -195,6 +198,82 @@ export default defineComponent({
           col.sortDirection = "none";
         }
       }
+    },
+    filter_data(arr, filterString, expandingProperty, colDefinitions, expand) {
+      let filtered = [];
+      //only apply filter for strings 3 characters long or more
+      if (!filterString || filterString.length < 3) {
+        for (let i = 0; i < arr.length; i++) {
+          let item = arr[i];
+          if (item.visible) {
+            filtered.push(item);
+          }
+        }
+      } else {
+        let ancestorStack = [];
+        let currentLevel = 0;
+        for (let i = 0; i < arr.length; i++) {
+          let item = arr[i];
+          while (currentLevel >= item.level) {
+            let throwAway = ancestorStack.pop();
+            currentLevel--;
+          }
+          ancestorStack.push(item);
+          currentLevel = item.level;
+          if (this.include(item, filterString, expandingProperty, colDefinitions)) {
+            for (let ancestorIndex = 0; ancestorIndex < ancestorStack.length; ancestorIndex++) {
+              let ancestor = ancestorStack[ancestorIndex];
+              if (ancestor.expend) {
+                if (expand)
+                  ancestor.expend = true;
+                filtered.push(ancestor);
+              }
+            }
+            filtered.push(item);
+            ancestorStack = [];
+          }
+        }
+      }
+      console.log(filtered)
+      return filtered;
+    },
+    include(item, filterString, expandingProperty, colDefinitions) {
+      let includeItem = false;
+      let filterApplied = false;
+      //first check the expandingProperty
+      filterApplied = true;
+      if (this.checkItem(item, filterString, expandingProperty)) {
+        includeItem = true;
+      }
+      //then check each of the other columns
+      let arraySize = colDefinitions.length;
+      for (let i = 0; i < arraySize; i++) {
+        let col = colDefinitions[i];
+        if (col.filterable) {
+          filterApplied = true;
+          if (this.checkItem(item, filterString, col)) {
+            includeItem = true;
+          }
+        }
+      }
+      if (filterApplied) {
+        return includeItem;
+      } else {
+        return true;
+      }
+    },
+    checkItem(item, filterString, col) {
+      if (col.sortingType === "number") {
+        if (item[col.field] != null
+            && parseFloat(item[col.field]) === parseFloat(filterString)) {
+          return true;
+        }
+      } else {
+        if (item[col.field] != null
+            && item[col.field].toLowerCase().indexOf(filterString.toLowerCase()) !== -1) {
+          return true;
+        }
+      }
     }
   },
   computed: {
@@ -205,6 +284,10 @@ export default defineComponent({
       vm.temp_index = 1;
       vm.recursive(vm.data, newObj, 0, vm.itemId, vm.isExpanded, vm.first_call);
       vm.first_call = ref(false);
+      if(this.filter.length>=3){
+        let data = this.filter_data(newObj, this.filter, true, this.columns)
+        return data
+      }
       return newObj;
     },
     hasDefaultSlot() {
