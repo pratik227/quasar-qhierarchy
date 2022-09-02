@@ -43,6 +43,7 @@ const data = [
         label: "Node 1.1",
         description: "Node 1.1 description",
         note: "Node 1.1 note",
+        children:null
         // id: 2
       },
       {

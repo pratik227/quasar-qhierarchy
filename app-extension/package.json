@@ -1,6 +1,6 @@
 {
   "name": "quasar-app-extension-qhierarchy",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Quasar App Extension",
   "author": "pratikpatelpp802@gmail.com",
   "license": "MIT",
@@ -23,7 +23,7 @@
   ],
   "bugs": "https://github.com/pratik227/quasar-qhierarchy/issues",
   "dependencies": {
-    "quasar-ui-qhierarchy": "^1.0.2"
+    "quasar-ui-qhierarchy": "latest"
   },
   "engines": {
     "node": ">= 8.9.0",

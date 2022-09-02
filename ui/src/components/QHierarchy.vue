@@ -129,7 +129,7 @@ export default defineComponent({
     },
     setUndefined(item) {
       let vm = this;
-      if (item.hasOwnProperty('children')) {
+      if (item.hasOwnProperty('children') && item.children) {
         item.children.forEach(function (o) {
           o.expend = ref(undefined);
           vm.setUndefined(o)
