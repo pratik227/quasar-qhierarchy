@@ -1,7 +1,8 @@
 <template>
   <q-page class="q-pa-sm">
+    <q-input v-model="filter" label="Search" outlined class="q-py-sm"></q-input>
     <q-hierarchy dense :columns="columns" :data="data" :classes="classes" :dark="dark"
-                 :default-expand-all="default_expand_all"></q-hierarchy>
+                 :default-expand-all="default_expand_all" :filter="filter"></q-hierarchy>
   </q-page>
 </template>
 
@@ -15,14 +16,16 @@ const columns = [
     align: 'left',
     field: 'label',
     // (optional) tell QHierarchy you want this column sortable
-    sortable: true
+    sortable: true,
+    filterable: true
   },
   {
     name: 'Description',
     label: 'Description',
     sortable: true,
     field: 'description',
-    align: 'center'
+    align: 'center',
+    filterable: true
   },
   {
     name: 'note',
@@ -112,6 +115,7 @@ export default defineComponent({
       classes: ref('bg-deep-purple-10'),
       dense: ref(false),
       dark: ref(true),
+      filter: ref(''),
       default_expand_all: ref(true),
     }
   }

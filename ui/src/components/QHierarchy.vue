@@ -1,7 +1,5 @@
 <template>
     <span>
-            <q-input outlined v-model="filter" label="Outlined" />
-
         <q-markup-table :separator="separator" :dense="dense" :dark="dark" :flat="flat" :bordered="bordered"
                         :square="square" :class="classes">
             <thead>
@@ -41,7 +39,7 @@ import {ref} from 'vue';
 
 export default defineComponent({
   name: "QHierarchy",
-  props: ['data', 'columns', 'separator', 'dense', 'dark', 'flat', 'bordered', 'square', 'classes', 'defaultExpandAll'],
+  props: ['data', 'columns', 'separator', 'dense', 'dark', 'flat', 'bordered', 'square', 'classes', 'defaultExpandAll', 'filter'],
   setup() {
     return {
       leftDrawerOpen: ref(false),
@@ -50,8 +48,7 @@ export default defineComponent({
       itemId: ref(null),
       temp_data: ref([]),
       temp_index: ref(1),
-      first_call: ref(false),
-      filter: ref('')
+      first_call: ref(false)
     }
   }, watch: {
     selectedIDRow: function (val) {

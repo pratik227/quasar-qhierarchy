@@ -14,6 +14,15 @@
             Please note that the codepen links, in the documentation examples, do not work at this time.
           </q-banner>
         </q-card-section>
+
+        <q-card-section>
+          <div class="text-h6">Note</div>
+          <q-banner inline-actions class="text-white bg-info rounded-borders">
+            Added new Filter Functionality.
+            <br/>
+            For Filter. So if you want use then you need to add filterable: true in column object and also need to pass filter props.
+          </q-banner>
+        </q-card-section>
       </q-card>
 
       <vue3-markdown-it :source='source' class="q-px-md"/>
