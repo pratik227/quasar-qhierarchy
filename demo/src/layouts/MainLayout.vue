@@ -74,6 +74,11 @@
                 QHierarchy Default Expand All
               </q-item-section>
             </q-item>
+            <q-item class="text-primary q-ml-md" :active-class="$route.path=='/example-qhierarchy-filter-demo'?'bg-grey-3':''" to="/example-qhierarchy-filter-demo" dense clickable>
+              <q-item-section>
+                QHierarchy Filter Demo
+              </q-item-section>
+            </q-item>
           </q-card>
         </q-expansion-item>
         <q-expansion-item dense style="font-size: 12px;"
