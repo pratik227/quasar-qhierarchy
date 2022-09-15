@@ -281,7 +281,7 @@ export default defineComponent({
       vm.temp_index = 1;
       vm.recursive(vm.data, newObj, 0, vm.itemId, vm.isExpanded, vm.first_call);
       vm.first_call = ref(false);
-      if(this.filter.length>=3){
+      if(this.filter && this.filter.length>=3){
         let data = this.filter_data(newObj, this.filter, true, this.columns)
         return data
       }
