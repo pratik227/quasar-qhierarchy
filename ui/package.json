@@ -1,6 +1,6 @@
 {
   "name": "quasar-ui-qhierarchy",
-  "version": "1.0.10",
+  "version": "1.0.12",
   "author": "pratikpatelpp802@gmail.com",
   "description": "QHierarchy",
   "license": "MIT",
@@ -16,12 +16,16 @@
     "build": "node build/index.js",
     "build:js": "node build/script.javascript.js"
   },
+  "homepage": "https://next-quasar-qhierarchy.netlify.app/",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/pratik227/quasar-qhierarchy.git"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/pratik227"
   },
   "bugs": "",
-  "homepage": "",
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",
     "@rollup/plugin-json": "^4.0.0",
