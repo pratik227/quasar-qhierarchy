@@ -69,6 +69,16 @@
                 QHierarchy Slot Demo
               </q-item-section>
             </q-item>
+            <q-item class="text-primary q-ml-md" :active-class="$route.path=='/example-qhierarchy-header-slot-demo'?'bg-grey-3':''" to="/example-qhierarchy-header-slot-demo" dense clickable>
+              <q-item-section>
+                QHierarchy Header Slot Demo
+              </q-item-section>
+            </q-item>
+            <q-item class="text-primary q-ml-md" :active-class="$route.path=='/example-qhierarchy-row-click-demo'?'bg-grey-3':''" to="/example-qhierarchy-row-click-demo" dense clickable>
+              <q-item-section>
+                QHierarchy Row Click Demo
+              </q-item-section>
+            </q-item>
             <q-item class="text-primary q-ml-md" :active-class="$route.path=='/example-qhierarchy-default-expand-all'?'bg-grey-3':''" to="/example-qhierarchy-default-expand-all" dense clickable>
               <q-item-section>
                 QHierarchy Default Expand All

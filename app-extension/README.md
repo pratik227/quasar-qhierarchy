@@ -1,5 +1,9 @@
 # QHierarchy
 
+
+[![npm](https://img.shields.io/npm/v/quasar-app-extension-qhierarchy.svg?label=quasar-app-extension-qhierarchy)](https://www.npmjs.com/package/quasar-app-extension-qhierarchy)
+[![npm](https://img.shields.io/npm/dt/quasar-app-extension-qhierarchy.svg)](https://www.npmjs.com/package/quasar-app-extension-qhierarchy)
+
 <!-- Please note, this is currently a work-in-progress (WIP). -->
 
 QHierarchy is a [Quasar App Extension](https://quasar.dev/app-extensions/introduction).  It allows you to display data in hierarchy structure on your page.

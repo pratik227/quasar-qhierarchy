@@ -3,11 +3,14 @@
         <q-markup-table :separator="separator" :dense="dense" :dark="dark" :flat="flat" :bordered="bordered"
                         :square="square" :class="classes">
             <thead>
-            <tr>
+            <tr v-if="!hasHeaderSlot">
                 <th v-for="col in columns" @click="col.sortable?sortBy(col):null" :class="'text-'+col.align">
                     {{ col.label }}
                     <q-icon v-if="col.sorted" :name="col.sortDirection=='asc'?'arrow_upward':'arrow_downward'"></q-icon>
                 </th>
+            </tr>
+            <tr v-if="hasHeaderSlot">
+                <slot name="header" :columns="columns" v-bind:sortBy="sortBy"></slot>
             </tr>
             </thead>
             <tbody>
@@ -16,8 +19,8 @@
                       v-bind:iconName="iconName">
                 </slot>
             </tr>
-            <tr v-for="(item ,index)  in (arrayTreeObj)" :key="index" v-if="!hasDefaultSlot">
-
+            <tr v-for="(item ,index)  in (arrayTreeObj)" :key="index" v-if="!hasDefaultSlot"
+                @click="expand_on_row_click ? toggle(item) : null">
                 <td data-th="Name" v-for="col,col_index in columns" :class="'text-'+col.align">
                     <div v-bind:style="col_index==0?setPadding(item):{'padding-left':'30px'}"
                          :class="iconName(item)!='done'?'q-pl-lg':''">
@@ -39,7 +42,7 @@ import {ref} from 'vue';
 
 export default defineComponent({
   name: "QHierarchy",
-  props: ['data', 'columns', 'separator', 'dense', 'dark', 'flat', 'bordered', 'square', 'classes', 'defaultExpandAll', 'filter'],
+  props: ['data', 'columns', 'separator', 'dense', 'dark', 'flat', 'bordered', 'square', 'classes', 'defaultExpandAll', 'filter', 'expand_on_row_click'],
   setup() {
     return {
       leftDrawerOpen: ref(false),
@@ -281,7 +284,7 @@ export default defineComponent({
       vm.temp_index = 1;
       vm.recursive(vm.data, newObj, 0, vm.itemId, vm.isExpanded, vm.first_call);
       vm.first_call = ref(false);
-      if(this.filter && this.filter.length>=3){
+      if (this.filter && this.filter.length >= 3) {
         let data = this.filter_data(newObj, this.filter, true, this.columns)
         return data
       }
@@ -289,6 +292,9 @@ export default defineComponent({
     },
     hasDefaultSlot() {
       return this.$slots.hasOwnProperty("body");
+    },
+    hasHeaderSlot() {
+      return this.$slots.hasOwnProperty("header");
     },
   },
   created() {

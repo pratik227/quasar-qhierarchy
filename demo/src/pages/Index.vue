@@ -179,6 +179,12 @@ const json = {
       "desc": "Allow the QHierarchy to have all it's nodes expanded, when first rendered",
       "category": "behaviour"
     },
+    "expand_on_row_click": {
+      "extends": "dark",
+      "type": "boolean",
+      "desc": "Expand on Row click Note: Only works if you are not using the body slots",
+      "category": "behaviour"
+    },
     "flat": {
       "extends": "flat",
       "type": "boolean",
@@ -210,6 +216,10 @@ const json = {
     "body": {
       "extends": "default",
       "desc": "Slot to define how a body row looks like; Suggestion: tr + td"
+    },
+    "header": {
+      "extends": "default",
+      "desc": "Slot to define how a header row looks like; Suggestion: tr + th"
     }
   },
 }
