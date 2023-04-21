@@ -9,6 +9,7 @@ const routes = [
       { path: '/example-qhierarchy-custom', component: () => import('pages/CustomExample') },
       { path: '/example-qhierarchy-slot-demo', component: () => import('pages/SlotDemoExample') },
       { path: '/example-qhierarchy-header-slot-demo', component: () => import('pages/HeaderSlotDemoExample.vue') },
+      { path: '/example-qhierarchy-row-click-demo', component: () => import('pages/RowClickDemoExample.vue') },
       { path: '/example-qhierarchy-default-expand-all', component: () => import('pages/ExpandAllExample') },
       { path: '/example-qhierarchy-filter-demo', component: () => import('pages/FilterDemoExample') },
       { path: '/sponsor', component: () => import('pages/Sponsor') }

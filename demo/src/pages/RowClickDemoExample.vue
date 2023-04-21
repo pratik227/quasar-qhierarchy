@@ -10,7 +10,7 @@
 
       <example-viewer
         title="QHierarchy Header Slot Demo"
-        file="HeaderSlotDemo"
+        file="RowClickDemo"
       />
 
       <page-footer></page-footer>
@@ -28,7 +28,7 @@ export default defineComponent({
   name: "HeaderSlotDemo",
   setup(){
     return{
-      title:'QHierarchy Header Slot Demo',
+      title:'QHierarchy Row Click Expand Demo',
       year,
       openLink(href) {
         window.open(href)
