@@ -35,7 +35,7 @@
     "markdown-it-sup": "^1.0.0",
     "markdown-it-task-lists": "^2.1.1",
     "toml": "^3.0.0",
-    "@quasar/app-webpack": "^3.0.0"
+    "@quasar/app-webpack": "^3.7.2"
   },
   "browserslist": [
     "last 10 Chrome versions",
