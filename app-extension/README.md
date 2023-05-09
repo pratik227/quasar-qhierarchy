@@ -99,6 +99,13 @@ can be found [here](https://next-quasar-qhierarchy.netlify.app/).
 
 can be found [here](https://github.com/pratik227/quasar-qhierarchy/tree/next/demo).
 
+# Sponsors
+
+<p align="center">
+  <a href="https://github.com/pratik227/static/blob/main/sponsors.svg">
+    <img src='https://github.com/pratik227/static/blob/main/sponsors.svg'/>
+  </a>
+</p>
 
 # Support
 
