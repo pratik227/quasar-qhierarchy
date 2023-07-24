@@ -31,6 +31,14 @@
                     </div>
                 </td>
             </tr>
+
+            <tr v-if="hasFooterSlot">
+              <slot name="footer">
+              </slot>
+            </tr>
+            <tr v-if="!hasFooterSlot && footer_text">
+               <td :colspan="columns.length" :class="footer_class">{{ footer_text }}</td>
+            </tr>
             </tbody>
         </q-markup-table>
     </span>
@@ -42,7 +50,7 @@ import {ref} from 'vue';
 
 export default defineComponent({
   name: "QHierarchy",
-  props: ['data', 'columns', 'separator', 'dense', 'dark', 'flat', 'bordered', 'square', 'classes', 'defaultExpandAll', 'filter', 'expand_on_row_click'],
+  props: ['data', 'columns', 'separator', 'dense', 'dark', 'flat', 'bordered', 'square', 'classes', 'defaultExpandAll', 'filter', 'expand_on_row_click','footer_text','footer_class'],
   setup() {
     return {
       leftDrawerOpen: ref(false),
@@ -292,6 +300,9 @@ export default defineComponent({
     },
     hasDefaultSlot() {
       return this.$slots.hasOwnProperty("body");
+    },
+    hasFooterSlot() {
+      return this.$slots.hasOwnProperty("footer");
     },
     hasHeaderSlot() {
       return this.$slots.hasOwnProperty("header");
