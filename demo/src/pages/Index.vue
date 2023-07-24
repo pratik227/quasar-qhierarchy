@@ -203,6 +203,16 @@ const json = {
       "desc": "Removes border-radius so borders are squared",
       "category": "style"
     },
+    "footer_text": {
+      "type": "String",
+      "desc": "Use for footer text",
+      "category": "content"
+    },
+    "footer_class": {
+      "type": "String",
+      "desc": "Use for classes you want to apply in footer",
+      "category": "content"
+    },
     "separator": {
       "type": "String",
       "desc": "Use a separator/border between rows, columns or all cells",
@@ -220,6 +230,10 @@ const json = {
     "header": {
       "extends": "default",
       "desc": "Slot to define how a header row looks like; Suggestion: tr + th"
+    },
+    "footer": {
+      "extends": "default",
+      "desc": "Slot to define how a footer row looks like; Suggestion: tr + td"
     }
   },
 }
