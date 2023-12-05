@@ -48,6 +48,9 @@ module.exports = function (ctx) {
       chainWebpack (chain, { isServer }) {
         const ext = isServer ? 'common' : 'esm'
 
+        chain.resolve.symlinks(false)
+        chain.resolve.alias.set( 'vue', path.resolve('./node_modules/vue'))
+
         chain.resolve.alias.merge({
           ui: path.resolve(__dirname, `../src/index.${ext}.js`)
         })
