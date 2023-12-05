@@ -68,6 +68,8 @@ module.exports = configure(function (ctx) {
       // https://v2.quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
       chainWebpack (chain) {
+        chain.resolve.symlinks(false)
+        chain.resolve.alias.set( 'vue', path.resolve('./node_modules/vue'))
 
         chain.resolve.alias.merge({
           examples: path.resolve(__dirname, './src/examples')

@@ -209,12 +209,13 @@ export default defineComponent({
     },
     filter_data(arr, filterString, expandingProperty, colDefinitions, expand) {
       let filtered = [];
-      //only apply filter for strings 3 characters long or more
+      let addedItems = new Set();
       if (!filterString || filterString.length < 3) {
         for (let i = 0; i < arr.length; i++) {
           let item = arr[i];
-          if (item.visible) {
+          if (item.visible && !addedItems.has(item)) {
             filtered.push(item);
+            addedItems.add(item);
           }
         }
       } else {
@@ -231,18 +232,23 @@ export default defineComponent({
           if (this.include(item, filterString, expandingProperty, colDefinitions)) {
             for (let ancestorIndex = 0; ancestorIndex < ancestorStack.length; ancestorIndex++) {
               let ancestor = ancestorStack[ancestorIndex];
-              if (ancestor.expend) {
-                if (expand)
+              if (ancestor.expend && !addedItems.has(ancestor)) {
+                if (expand) {
                   ancestor.expend = true;
+                }
                 filtered.push(ancestor);
+                addedItems.add(ancestor);
               }
             }
-            filtered.push(item);
+
+            if (!addedItems.has(item)) {
+              filtered.push(item);
+              addedItems.add(item);
+            }
             ancestorStack = [];
           }
         }
       }
-      console.log(filtered)
       return filtered;
     },
     include(item, filterString, expandingProperty, colDefinitions) {
