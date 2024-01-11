@@ -50,7 +50,7 @@ import {ref} from 'vue';
 
 export default defineComponent({
   name: "QHierarchy",
-  props: ['data', 'columns', 'separator', 'dense', 'dark', 'flat', 'bordered', 'square', 'classes', 'defaultExpandAll', 'filter', 'expand_on_row_click','footer_text','footer_class'],
+  props: ['data', 'columns', 'separator', 'dense', 'dark', 'flat', 'bordered', 'square', 'classes', 'defaultExpandAll', 'filter', 'expand_on_row_click', 'footer_text', 'footer_class'],
   setup() {
     return {
       leftDrawerOpen: ref(false),
@@ -210,47 +210,37 @@ export default defineComponent({
     filter_data(arr, filterString, expandingProperty, colDefinitions, expand) {
       let filtered = [];
       let addedItems = new Set();
-      if (!filterString || filterString.length < 3) {
-        for (let i = 0; i < arr.length; i++) {
-          let item = arr[i];
-          if (item.visible && !addedItems.has(item)) {
+
+      // Function to check if any child of an item matches the filter criteria
+      const hasMatchingChild = (item) => {
+        if (!item.children || item.children.length === 0) return false;
+        return item.children.some(child => this.include(child, filterString, expandingProperty, colDefinitions) || hasMatchingChild(child));
+      };
+
+      for (let i = 0; i < arr.length; i++) {
+        let item = arr[i];
+
+        // Check if the item or any of its children match the filter criteria
+        if (this.include(item, filterString, expandingProperty, colDefinitions) || hasMatchingChild(item)) {
+          if (!addedItems.has(item)) {
             filtered.push(item);
             addedItems.add(item);
           }
-        }
-      } else {
-        let ancestorStack = [];
-        let currentLevel = 0;
-        for (let i = 0; i < arr.length; i++) {
-          let item = arr[i];
-          while (currentLevel >= item.level) {
-            let throwAway = ancestorStack.pop();
-            currentLevel--;
-          }
-          ancestorStack.push(item);
-          currentLevel = item.level;
-          if (this.include(item, filterString, expandingProperty, colDefinitions)) {
-            for (let ancestorIndex = 0; ancestorIndex < ancestorStack.length; ancestorIndex++) {
-              let ancestor = ancestorStack[ancestorIndex];
-              if (ancestor.expend && !addedItems.has(ancestor)) {
-                if (expand) {
-                  ancestor.expend = true;
-                }
-                filtered.push(ancestor);
-                addedItems.add(ancestor);
-              }
-            }
 
-            if (!addedItems.has(item)) {
-              filtered.push(item);
-              addedItems.add(item);
+          // If expanding, ensure parent nodes are expanded
+          if (expand) {
+            let parent = item;
+            while (parent) {
+              parent.expend = true;
+              parent = parent.parent; // Assuming each item has a reference to its parent
             }
-            ancestorStack = [];
           }
         }
       }
+
       return filtered;
     },
+
     include(item, filterString, expandingProperty, colDefinitions) {
       let includeItem = false;
       let filterApplied = false;
