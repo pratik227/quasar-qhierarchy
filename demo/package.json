@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.16.9",
-    "axios": "^0.21.2",
+    "axios": "^0.28.0",
     "core-js": "^3.6.5",
     "quasar": "^2.14.1",
     "quasar-app-extension-qhierarchy": "file:../app-extension",
