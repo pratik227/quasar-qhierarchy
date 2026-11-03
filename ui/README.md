@@ -1,5 +1,7 @@
 # QHierarchy: UI component (`quasar-ui-qhierarchy`)
 
+<p align="center"><img src="https://raw.githubusercontent.com/pratik227/quasar-qhierarchy/next/demo/public/og-image.png" alt="QHierarchy: hierarchical data, rendered fast" width="720"></p>
+
 [![npm](https://img.shields.io/npm/v/quasar-ui-qhierarchy.svg?label=quasar-ui-qhierarchy)](https://www.npmjs.com/package/quasar-ui-qhierarchy)
 [![npm](https://img.shields.io/npm/v/quasar-app-extension-qhierarchy.svg?label=quasar-app-extension-qhierarchy)](https://www.npmjs.com/package/quasar-app-extension-qhierarchy)
 

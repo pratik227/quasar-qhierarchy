@@ -73,11 +73,20 @@ const contentRef = ref(null)
 const toc = ref([])
 const activeId = ref(null)
 
-useMeta(() => ({
-  title: props.title,
-  titleTemplate: title => `${title} · QHierarchy`,
-  meta: props.lead ? { description: { name: 'description', content: props.lead } } : {}
-}))
+useMeta(() => {
+  const title = `${props.title} · QHierarchy`
+  const meta = {
+    ogTitle: { property: 'og:title', content: title },
+    twitterTitle: { name: 'twitter:title', content: title },
+    ogUrl: { property: 'og:url', content: 'https://next-quasar-qhierarchy.netlify.app' + route.path }
+  }
+  if (props.lead) {
+    meta.description = { name: 'description', content: props.lead }
+    meta.ogDescription = { property: 'og:description', content: props.lead }
+    meta.twitterDescription = { name: 'twitter:description', content: props.lead }
+  }
+  return { title: props.title, titleTemplate: t => `${t} · QHierarchy`, meta }
+})
 
 const siblings = computed(() => getSiblings(route.path))
 const eyebrow = computed(() => props.eyebrow || (findNavItem(route.path) || {}).group)
