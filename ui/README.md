@@ -1,119 +1,117 @@
-# Component QHierarchy
+# QHierarchy: UI component (`quasar-ui-qhierarchy`)
 
 [![npm](https://img.shields.io/npm/v/quasar-ui-qhierarchy.svg?label=quasar-ui-qhierarchy)](https://www.npmjs.com/package/quasar-ui-qhierarchy)
-[![npm](https://img.shields.io/npm/dt/quasar-ui-qhierarchy.svg)](https://www.npmjs.com/package/quasar-ui-qhierarchy)
+[![npm](https://img.shields.io/npm/v/quasar-app-extension-qhierarchy.svg?label=quasar-app-extension-qhierarchy)](https://www.npmjs.com/package/quasar-app-extension-qhierarchy)
 
-**Compatible with Quasar UI v2 and Vue 3**.
+**A fast tree grid for [Quasar](https://quasar.dev) and Vue 3.** Hierarchical data shown as table rows, with
+virtual scrolling, tri-state selection, lazy loading, sorting, filtering and full keyboard support.
 
-# Component QHierarchy
-> Short description of the component
+📖 **Docs & live examples:** https://next-quasar-qhierarchy.netlify.app/
 
+## Features
 
-# Usage
+- **Virtual scrolling** (`virtual-scroll`): 100,000+ rows, only the visible ones are rendered
+- **Selection** (`selection="single" | "multiple"`, `v-model:selected`): cascading tri-state checkboxes, or `strict-selection`
+- **Lazy loading** (`lazy: true` nodes + `@lazy-load`): load children on demand, with loading and retry
+- **Flat or nested data**: nested `children`, or self-referential `id` / `parentId` rows via `parent-key`
+- **Sorting** at every level: text, `number`, `date` or custom comparators
+- **Filtering** that keeps ancestors visible and auto-expands them
+- **Controlled expansion**: `v-model:expanded`, `expandAll()`, `collapseAll()`, `expandToLevel()`…
+- **Keyboard & accessibility**: WAI-ARIA treegrid, arrow keys, Home/End, Space/Enter
+- **Slots** for rows (`body`), cells (`cell-[name]`), `header`, `footer` and `no-data`
+- **Never mutates your data or columns**
 
-## Quasar CLI project
+## Install
 
-Install the [App Extension](../app-extension).
+### Quasar CLI (app extension)
 
-**OR**:
-
-Create and register a boot file:
-
-```js
-import Vue from 'vue'
-import Plugin from 'quasar-ui-qhierarchy'
-
-Vue.use(Plugin)
+```bash
+quasar ext add qhierarchy
 ```
 
-**OR**:
+Works with `@quasar/app-vite` v1–v3 and `@quasar/app-webpack` v3–v4. `quasar describe QHierarchy` prints the API.
+
+### Vue plugin
+
+```bash
+npm install quasar-ui-qhierarchy
+```
+
+```js
+import QHierarchyPlugin from 'quasar-ui-qhierarchy'
+import 'quasar-ui-qhierarchy/dist/index.css'
+
+app.use(QHierarchyPlugin)
+```
+
+### UMD
 
 ```html
-<script>
-import { Component as QHierarchy } from 'quasar-ui-qhierarchy'
+<link href="https://cdn.jsdelivr.net/npm/quasar-ui-qhierarchy/dist/index.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/quasar-ui-qhierarchy/dist/index.umd.min.js"></script>
+<!-- app.use(qhierarchy) -->
+```
 
-export default {
-  components: {
-    QHierarchy
+## Usage
+
+```vue
+<template>
+  <q-hierarchy
+    :columns="columns"
+    :data="data"
+    node-key="id"
+    selection="multiple"
+    v-model:selected="selected"
+  />
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const columns = [
+  { name: 'label', label: 'Label', field: 'label', align: 'left', sortable: true },
+  { name: 'description', label: 'Description', field: 'description', sortable: true, filterable: true },
+  { name: 'size', label: 'Size', field: 'size', align: 'right', sortable: true, sortingType: 'number' }
+]
+
+const data = [
+  {
+    id: 1,
+    label: 'Node 1',
+    description: 'Node 1 description',
+    size: 12,
+    children: [
+      { id: 2, label: 'Node 1.1', description: 'Node 1.1 description', size: 4 },
+      { id: 3, label: 'Node 1.2', description: 'Node 1.2 description', size: 8 }
+    ]
   }
-}
+]
+
+const selected = ref([])
 </script>
 ```
 
-## Vue CLI project
+**Compatible with Quasar v2 and Vue 3.**
 
-```js
-import Vue from 'vue'
-import Plugin from 'quasar-ui-qhierarchy'
+Upgrading from v1? See the [migration guide](https://next-quasar-qhierarchy.netlify.app/docs/migration).
 
-Vue.use(Plugin)
-```
+## Repository
 
-**OR**:
+| Folder | Package |
+| --- | --- |
+| [`ui/`](ui) | `quasar-ui-qhierarchy`: the component (Vue plugin, ESM / CJS / UMD builds) |
+| [`app-extension/`](app-extension) | `quasar-app-extension-qhierarchy`: the Quasar CLI app extension |
+| [`demo/`](demo) | Docs site and playground (Quasar CLI + Vite), renders the local `ui/` sources |
 
-```html
-<script>
-import { Component as QHierarchy } from 'quasar-ui-qhierarchy'
-
-export default {
-  components: {
-    QHierarchy
-  }
-}
-</script>
-```
-
-## UMD variant
-
-Exports `window.qhierarchy`.
-
-Add the following tag(s) after the Quasar ones:
-
-```html
-<body>
-  <!-- at end of body, AFTER Quasar script(s): -->
-  <script src="https://cdn.jsdelivr.net/npm/quasar-ui-qhierarchy/dist/index.umd.min.js"></script>
-</body>
-```
-
-# Setup
 ```bash
-$ yarn
+# docs / playground (Node 22.22+)
+cd demo && npm install && npm run dev
+
+# build the UI package into ui/dist
+cd ui && npm install && npm run build
 ```
 
-# Developing
-```bash
-# start dev in SPA mode
-$ yarn dev
-
-# start dev in UMD mode
-$ yarn dev:umd
-
-# start dev in SSR mode
-$ yarn dev:ssr
-
-# start dev in Cordova iOS mode
-$ yarn dev:ios
-
-# start dev in Cordova Android mode
-$ yarn dev:android
-
-# start dev in Electron mode
-$ yarn dev:electron
-```
-
-# Building package
-```bash
-$ yarn build
-```
-
-# Adding Testing Components
-in the `ui/dev/src/pages` you can add Vue files to test your component/directive. When using `yarn dev` to build the UI, any pages in that location will automatically be picked up by dynamic routing and added to the test page.
-
-# Adding Assets
-If you have a component that has assets, like language or icon-sets, you will need to provide these for UMD. In the `ui/build/script.javascript.js` file, you will find a couple of commented out commands that call `addAssets`. Uncomment what you need and add your assets to have them be built and put into the `ui/dist` folder.
-
-# Sponsors
+## Sponsors
 
 <p align="center">
   <a href="https://github.com/pratik227/static/blob/main/sponsors.svg">
@@ -121,14 +119,14 @@ If you have a component that has assets, like language or icon-sets, you will ne
   </a>
 </p>
 
-# Support
+## Support
 
 If this helped you in any way, you can contribute to this project for long term survival by supporting me:
 
 ### [💜 Support my open-source work on GitHub](https://github.com/sponsors/pratik227)
 
-Be sure to check out my sponsor page.
-
 Thank you so much!!!
-# License
+
+## License
+
 MIT (c) pratikpatelpp802@gmail.com

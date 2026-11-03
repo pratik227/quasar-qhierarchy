@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build output
+ui/dist/
+demo/dist/
+demo/.quasar/
+demo/quasar.config.*.temporary.compiled*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS / editor
+.DS_Store
+.thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Local tooling
+.playwright-mcp/
