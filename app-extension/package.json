@@ -1,6 +1,6 @@
 {
   "name": "quasar-app-extension-qhierarchy",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "QHierarchy for Quasar CLI: a fast tree grid (hierarchical table) with virtual scrolling, tri-state selection, lazy loading and keyboard navigation",
   "author": "pratikpatelpp802@gmail.com",
   "license": "MIT",
@@ -30,7 +30,7 @@
   ],
   "bugs": "https://github.com/pratik227/quasar-qhierarchy/issues",
   "dependencies": {
-    "quasar-ui-qhierarchy": "^2.0.0"
+    "quasar-ui-qhierarchy": "^2.0.1"
   },
   "engines": {
     "node": ">= 14"

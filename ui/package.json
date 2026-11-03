@@ -1,6 +1,6 @@
 {
   "name": "quasar-ui-qhierarchy",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "pratikpatelpp802@gmail.com",
   "description": "QHierarchy: a fast tree grid (hierarchical data table) for Quasar and Vue 3, with virtual scrolling, tri-state selection, lazy loading and keyboard navigation",
   "license": "MIT",
