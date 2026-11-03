@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh lpR fff">
+  <q-layout view="hHh LpR fff">
     <q-header class="site-header">
       <div class="site-header__bar">
         <button v-if="hasSidebar" type="button" class="qh-btn qh-btn--ghost qh-btn--icon lt-md" aria-label="Open navigation" @click="drawer = !drawer">
@@ -237,13 +237,15 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
   }
 }
 
-.site-sidebar .q-drawer {
+// QDrawer puts `class` on .q-drawer__content, so style the drawer through it
+.q-drawer:has(> .site-sidebar),
+body.body--dark .q-drawer:has(> .site-sidebar) {
   background: var(--qh-bg) !important;
   border-right: 1px solid var(--qh-border);
 }
 
-body.body--dark .site-sidebar .q-drawer {
-  background: var(--qh-bg) !important;
+.site-sidebar {
+  overscroll-behavior: contain;
 }
 
 .sidebar {
