@@ -1,22 +1,18 @@
-# Quasar App (demo)
+# QHierarchy docs & playground
 
-A Quasar Framework app
+The documentation site (https://next-quasar-qhierarchy.netlify.app/), built with Quasar CLI (`@quasar/app-vite` v3).
 
-## Install the dependencies
+It always renders the component from the local `../ui` sources (see `build.alias` in `quasar.config.js`),
+and installs the local `../app-extension`, so it doubles as the development playground.
+
 ```bash
 npm install
+npm run dev     # http://localhost:9000
+npm run build   # -> dist/spa (history mode; public/_redirects handles SPA fallback on Netlify)
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
+Requires Node 22.22+ (see `engines`).
 
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.conf.js](https://v2.quasar.dev/quasar-cli/quasar-conf-js).
+- Pages: `src/pages`, navigation: `src/docs/nav.js`
+- Examples shown in the docs: `src/examples` (each file is rendered and its source displayed)
+- API reference: generated from `ui/src/components/QHierarchy.json`

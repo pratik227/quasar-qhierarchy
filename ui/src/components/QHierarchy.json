@@ -1,0 +1,307 @@
+{
+  "type": "component",
+
+  "meta": {
+    "docsUrl": "https://next-quasar-qhierarchy.netlify.app/docs/api"
+  },
+
+  "props": {
+    "data": {
+      "type": "Array",
+      "desc": "Tree nodes to display. Nested by default (each node may have a `children` array); flat (self-referential) when `parent-key` is set. The array and its nodes are never mutated",
+      "default": "[]",
+      "examples": [":data=\"nodes\""],
+      "category": "model"
+    },
+    "columns": {
+      "type": "Array",
+      "desc": "Column definitions: { name, label, field (String | Function), align, sortable, sortingType ('number' | 'date' | 'custom'), sortingFunc, sort, filterable, format, classes, style, headerClasses, headerStyle }",
+      "default": "[]",
+      "examples": [":columns=\"columns\""],
+      "category": "model"
+    },
+    "node-key": {
+      "type": ["String", "Function"],
+      "desc": "Property (or function) that uniquely identifies a node. Required for keys in `v-model:expanded` / `v-model:selected` to survive data reloads. Without it, node object identity is used",
+      "examples": ["node-key=\"id\"", ":node-key=\"node => node.path\""],
+      "category": "model"
+    },
+    "children-key": {
+      "type": "String",
+      "desc": "Property holding a node's children (nested data)",
+      "default": "'children'",
+      "category": "model"
+    },
+    "parent-key": {
+      "type": "String",
+      "desc": "Turns on flat (self-referential) data: each node points to its parent through this property. Nodes without a (known) parent become roots. `node-key` defaults to 'id' in this mode",
+      "examples": ["parent-key=\"parentId\""],
+      "category": "model"
+    },
+    "tree-column": {
+      "type": "String",
+      "desc": "Name of the column that shows the indentation and expand toggle (defaults to the first column)",
+      "category": "content"
+    },
+    "expanded": {
+      "type": "Array",
+      "desc": "Keys of expanded nodes (use with v-model:expanded). Leave undefined to let QHierarchy manage it",
+      "examples": ["v-model:expanded=\"expandedKeys\""],
+      "category": "model"
+    },
+    "default-expand-all": {
+      "type": "Boolean",
+      "desc": "Expand every node on first render (and when `data` is replaced)",
+      "category": "behavior"
+    },
+    "default-expand-level": {
+      "type": "Number",
+      "desc": "Expand nodes down to this depth on first render (1 = roots expanded)",
+      "default": "0",
+      "category": "behavior"
+    },
+    "expand-on-row-click": {
+      "type": "Boolean",
+      "desc": "Toggle a row when it is clicked (default body only). Legacy spelling `expand_on_row_click` is still accepted",
+      "category": "behavior"
+    },
+    "filter": {
+      "type": ["String", "Number"],
+      "desc": "Search term. Shows matching nodes plus their ancestors; ancestors are auto-expanded while filtering",
+      "examples": [":filter=\"search\""],
+      "category": "filter"
+    },
+    "filter-method": {
+      "type": "Function",
+      "desc": "Custom predicate (node, term, columns) => Boolean. By default, columns with `filterable: true` are searched (all columns if none is filterable)",
+      "category": "filter"
+    },
+    "filter-min-length": {
+      "type": "Number",
+      "desc": "Minimum term length before filtering kicks in",
+      "default": "3",
+      "category": "filter"
+    },
+    "filter-keep-descendants": {
+      "type": "Boolean",
+      "desc": "Also keep the descendants of matching nodes (collapsed) in the filtered result",
+      "category": "filter"
+    },
+    "selection": {
+      "type": "String",
+      "desc": "Row selection mode; adds a checkbox column",
+      "default": "'none'",
+      "values": ["'none'", "'single'", "'multiple'"],
+      "category": "selection"
+    },
+    "selected": {
+      "type": "Array",
+      "desc": "Keys of selected nodes (use with v-model:selected)",
+      "examples": ["v-model:selected=\"selectedKeys\""],
+      "category": "selection"
+    },
+    "strict-selection": {
+      "type": "Boolean",
+      "desc": "Multiple selection without cascading: parents and children are selected independently (no tri-state)",
+      "category": "selection"
+    },
+    "virtual-scroll": {
+      "type": "Boolean",
+      "desc": "Render only the rows in view (QVirtualScroll). Give the component a fixed height, for example style=\"height: 480px\". Implies a sticky header",
+      "category": "virtual-scroll"
+    },
+    "virtual-scroll-item-size": {
+      "type": ["Number", "String"],
+      "desc": "Row height estimate in px (defaults to 48, or 28 when dense)",
+      "category": "virtual-scroll"
+    },
+    "virtual-scroll-slice-size": {
+      "type": ["Number", "String"],
+      "desc": "Minimum number of rows to render in the virtual list",
+      "category": "virtual-scroll"
+    },
+    "virtual-scroll-sticky-size-start": {
+      "type": ["Number", "String"],
+      "desc": "Height of the sticky header in px (defaults to the row height)",
+      "category": "virtual-scroll"
+    },
+    "sticky-header": {
+      "type": "Boolean",
+      "desc": "Keep the header visible while scrolling (combine with a max-height). Background via --q-hierarchy-header-bg",
+      "category": "style"
+    },
+    "indent": {
+      "type": ["Number", "String"],
+      "desc": "Indentation per level, in px",
+      "default": "30",
+      "category": "style"
+    },
+    "expand-icon": {
+      "type": "String",
+      "desc": "QIcon name for the expand toggle (default: inline 'add' SVG, no icon font needed)",
+      "examples": ["expand-icon=\"chevron_right\""],
+      "category": "style"
+    },
+    "collapse-icon": {
+      "type": "String",
+      "desc": "QIcon name for the collapse toggle (default: inline 'remove' SVG)",
+      "examples": ["collapse-icon=\"expand_more\""],
+      "category": "style"
+    },
+    "separator": {
+      "type": "String",
+      "desc": "Use a separator/border between rows, columns or all cells",
+      "default": "'horizontal'",
+      "values": ["'horizontal'", "'vertical'", "'cell'", "'none'"],
+      "category": "style"
+    },
+    "dense": { "type": "Boolean", "desc": "Dense mode; occupies less space", "category": "style" },
+    "dark": { "type": "Boolean", "desc": "Notify the component that the background is a dark color (follows Quasar Dark mode when not set)", "default": "null", "category": "style" },
+    "flat": { "type": "Boolean", "desc": "Applies a 'flat' design (no default shadow)", "category": "style" },
+    "bordered": { "type": "Boolean", "desc": "Applies a default border to the component", "category": "style" },
+    "square": { "type": "Boolean", "desc": "Removes border-radius so borders are squared", "category": "style" },
+    "wrap-cells": { "type": "Boolean", "desc": "Wrap text within table cells", "category": "style" },
+    "classes": {
+      "type": ["String", "Array", "Object"],
+      "desc": "CSS classes for the table container",
+      "examples": ["classes=\"bg-grey-10 text-white\""],
+      "category": "style"
+    },
+    "no-data-label": { "type": "String", "desc": "Message when there is no data", "default": "'No data available'", "category": "content" },
+    "no-results-label": { "type": "String", "desc": "Message when the filter matches nothing", "default": "'No matching records found'", "category": "content" },
+    "footer-text": { "type": "String", "desc": "Text for a single footer row. Legacy spelling `footer_text` is still accepted", "category": "content" },
+    "footer-class": { "type": ["String", "Array", "Object"], "desc": "Classes for the footer cell. Legacy spelling `footer_class` is still accepted", "category": "content" }
+  },
+
+  "slots": {
+    "body": {
+      "desc": "Replaces a whole body row: render the <td> cells yourself. Suggestion: td",
+      "scope": {
+        "item": { "type": "Object", "desc": "The node (your original object)" },
+        "row": { "type": "Object", "desc": "Row meta: { key, index, level, expanded, hasChildren, loading, parent, posinset, setsize }" },
+        "level": { "type": "Number", "desc": "Depth (0 = root)" },
+        "expanded": { "type": "Boolean", "desc": "Is the node expanded" },
+        "hasChildren": { "type": "Boolean", "desc": "Does the node have (or lazily load) children" },
+        "selected": { "type": ["Boolean", "null"], "desc": "Selection state; null = indeterminate" },
+        "columns": { "type": "Array", "desc": "Column definitions" },
+        "toggle": { "type": "Function", "desc": "toggle(item) — expand/collapse a node" },
+        "select": { "type": "Function", "desc": "select(item) — toggle node selection" },
+        "setPadding": { "type": "Function", "desc": "setPadding(item) — returns the indentation style string" },
+        "iconName": { "type": "Function", "desc": "iconName(item) — 'remove' | 'add' | 'done'" }
+      }
+    },
+    "cell-[name]": {
+      "desc": "Content of the cell for column [name] (the <td>, indentation and toggle are kept)",
+      "scope": {
+        "item": { "type": "Object", "desc": "The node" },
+        "row": { "type": "Object", "desc": "Row meta" },
+        "col": { "type": "Object", "desc": "Column definition" },
+        "value": { "type": "Any", "desc": "Formatted cell value" },
+        "rawValue": { "type": "Any", "desc": "Raw cell value" }
+      }
+    },
+    "cell": {
+      "desc": "Content of every cell (cell-[name] takes precedence)",
+      "scope": {
+        "item": { "type": "Object", "desc": "The node" },
+        "col": { "type": "Object", "desc": "Column definition" },
+        "value": { "type": "Any", "desc": "Formatted cell value" }
+      }
+    },
+    "header": {
+      "desc": "Replaces the header row content. Suggestion: th",
+      "scope": {
+        "columns": { "type": "Array", "desc": "Columns, each with extra `sorted` and `sortDirection` ('asc' | 'desc' | 'none')" },
+        "sortBy": { "type": "Function", "desc": "sortBy(col) — sort by a column (toggles asc/desc)" }
+      }
+    },
+    "footer": {
+      "desc": "Footer row content. Suggestion: td",
+      "scope": {
+        "columns": { "type": "Array", "desc": "Column definitions" },
+        "rows": { "type": "Array", "desc": "Visible rows" }
+      }
+    },
+    "no-data": {
+      "desc": "Content shown when there are no (matching) rows",
+      "scope": {
+        "message": { "type": "String", "desc": "no-data-label or no-results-label" },
+        "filtering": { "type": "Boolean", "desc": "Is a filter active" }
+      }
+    }
+  },
+
+  "events": {
+    "sort_column": {
+      "desc": "Emitted when a column is sorted",
+      "params": {
+        "column": { "type": "Object", "desc": "Column definition plus `sorted: true` and `sortDirection` ('asc' | 'desc')" }
+      }
+    },
+    "update:expanded": {
+      "desc": "Emitted when nodes are expanded/collapsed (enables v-model:expanded)",
+      "params": { "keys": { "type": "Array", "desc": "Keys of expanded nodes" } }
+    },
+    "update:selected": {
+      "desc": "Emitted when the selection changes (enables v-model:selected)",
+      "params": { "keys": { "type": "Array", "desc": "Keys of selected nodes" } }
+    },
+    "lazy-load": {
+      "desc": "Emitted when a node with `lazy: true` is expanded for the first time",
+      "params": {
+        "details": {
+          "type": "Object",
+          "desc": "{ node, key, done(children), fail() } — call done() with the children array, or fail() to collapse and allow a retry"
+        }
+      }
+    },
+    "row-click": {
+      "desc": "Emitted when a row is clicked (not when clicking the toggle or checkbox)",
+      "params": {
+        "evt": { "type": "Event", "desc": "JS event" },
+        "node": { "type": "Object", "desc": "The node" },
+        "index": { "type": "Number", "desc": "Visible row index" }
+      }
+    },
+    "row-dblclick": {
+      "desc": "Emitted when a row is double clicked",
+      "params": {
+        "evt": { "type": "Event", "desc": "JS event" },
+        "node": { "type": "Object", "desc": "The node" },
+        "index": { "type": "Number", "desc": "Visible row index" }
+      }
+    }
+  },
+
+  "methods": {
+    "expandAll": { "desc": "Expand every node" },
+    "collapseAll": { "desc": "Collapse every node" },
+    "expandToLevel": {
+      "desc": "Expand nodes down to a depth (1 = roots expanded)",
+      "params": { "level": { "type": "Number", "desc": "Depth" } }
+    },
+    "expandNode": { "desc": "Expand a node", "params": { "nodeOrKey": { "type": ["Object", "Any"], "desc": "Node object or its key" } } },
+    "collapseNode": { "desc": "Collapse a node", "params": { "nodeOrKey": { "type": ["Object", "Any"], "desc": "Node object or its key" } } },
+    "toggleNode": { "desc": "Toggle a node", "params": { "nodeOrKey": { "type": ["Object", "Any"], "desc": "Node object or its key" } } },
+    "isExpanded": {
+      "desc": "Is a node expanded",
+      "params": { "nodeOrKey": { "type": ["Object", "Any"], "desc": "Node object or its key" } },
+      "returns": { "type": "Boolean", "desc": "Expanded state" }
+    },
+    "selectAll": { "desc": "Select every node (selection=\"multiple\")" },
+    "clearSelection": { "desc": "Clear the selection" },
+    "getSelectedNodes": { "desc": "Get the selected node objects", "returns": { "type": "Array", "desc": "Selected nodes" } },
+    "getVisibleRows": { "desc": "Get the flattened visible rows", "returns": { "type": "Array", "desc": "Row meta objects ({ node, key, level, ... })" } },
+    "sortBy": { "desc": "Sort by a column (toggles asc/desc)", "params": { "column": { "type": ["Object", "String"], "desc": "Column definition or name" } } },
+    "clearSort": { "desc": "Remove sorting" },
+    "scrollTo": {
+      "desc": "Scroll a visible row into view",
+      "params": {
+        "index": { "type": "Number", "desc": "Visible row index" },
+        "edge": { "type": "String", "desc": "Virtual scroll only: 'start' | 'center' | 'end' | 'start-force' | 'center-force' | 'end-force'" }
+      }
+    },
+    "focusRow": { "desc": "Move keyboard focus to a visible row", "params": { "index": { "type": "Number", "desc": "Visible row index" } } },
+    "refresh": { "desc": "Recompute the rows after mutating plain (non-reactive) data in place" }
+  }
+}

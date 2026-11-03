@@ -1,60 +1,45 @@
-const
-  fs = require('fs'),
-  path = require('path'),
-  root = path.resolve(__dirname, '../..'),
-  resolvePath = file => path.resolve(root, file),
-  { blue } = require('chalk')
+/**
+ * Keeps /app-extension/package.json in sync with the UI package:
+ * same version, and a caret dependency on the UI version being built.
+ */
+const fs = require('node:fs')
+const path = require('node:path')
 
-const writeJson = function (file, json) {
-  return fs.writeFileSync(file, JSON.stringify(json, null, 2) + '\n', 'utf-8')
+const root = path.resolve(__dirname, '../..')
+const resolvePath = file => path.resolve(root, file)
+
+function writeJson (file, json) {
+  fs.writeFileSync(file, JSON.stringify(json, null, 2) + '\n', 'utf-8')
 }
 
 module.exports.syncAppExt = function (both = true) {
-  // make sure this project has an app-extension project
-  const appExtDir = resolvePath('app-extension')
-  if (!fs.existsSync(appExtDir)) {
-    return
-  }
-
-  // make sure this project has an ui project
-  const uiDir = resolvePath('ui')
-  if (!fs.existsSync(uiDir)) {
-    return
-  }
-
-  // get version and name from ui package.json
-  const { name, version } = require(resolvePath(resolvePath('ui/package.json')))
-
-  // read app-ext package.json
   const appExtFile = resolvePath('app-extension/package.json')
-  let appExtJson = require(appExtFile),
-    finished = false
+  const uiFile = resolvePath('ui/package.json')
 
-  // sync version numbers
+  if (!fs.existsSync(appExtFile) || !fs.existsSync(uiFile)) {
+    return
+  }
+
+  const { name, version } = JSON.parse(fs.readFileSync(uiFile, 'utf-8'))
+  const appExtJson = JSON.parse(fs.readFileSync(appExtFile, 'utf-8'))
+  let finished = false
+
   if (both === true) {
     appExtJson.version = version
   }
 
-  // check dependencies
-  if (appExtJson.dependencies !== void 0) {
-    if (appExtJson.dependencies[name] !== void 0) {
-      appExtJson.dependencies[name] = '^' + version
-      finished = true
-    }
-  }
-  // check devDependencies, if not finished
-  if (finished === false && appExtJson.devDependencies !== void 0) {
-    if (appExtJson.devDependencies[name] !== void 0) {
-      appExtJson.devDependencies[name] = '^' + version
+  for (const field of ['dependencies', 'devDependencies']) {
+    if (finished === false && appExtJson[field] !== undefined && appExtJson[field][name] !== undefined) {
+      appExtJson[field][name] = '^' + version
       finished = true
     }
   }
 
   if (finished === true) {
     writeJson(appExtFile, appExtJson)
-    console.log(` ⭐️ App Extension version ${blue(appExtJson.name)} synced with UI version.\n`)
+    console.log(` ⭐️ App Extension ${appExtJson.name} synced with UI v${version}.\n`)
     return
   }
 
-  console.error(`   App Extension version and dependency NOT synced.\n`)
+  console.error('   App Extension version and dependency NOT synced.\n')
 }

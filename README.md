@@ -1,101 +1,115 @@
 # QHierarchy
 
-<!-- Please note, this is currently a work-in-progress (WIP). -->
+[![npm](https://img.shields.io/npm/v/quasar-ui-qhierarchy.svg?label=quasar-ui-qhierarchy)](https://www.npmjs.com/package/quasar-ui-qhierarchy)
+[![npm](https://img.shields.io/npm/v/quasar-app-extension-qhierarchy.svg?label=quasar-app-extension-qhierarchy)](https://www.npmjs.com/package/quasar-app-extension-qhierarchy)
 
-QHierarchy is a [Quasar App Extension](https://quasar.dev/app-extensions/introduction).  It allows you to display data in hierarchy structure on your page.
+**A fast tree grid for [Quasar](https://quasar.dev) and Vue 3.** Hierarchical data shown as table rows, with
+virtual scrolling, tri-state selection, lazy loading, sorting, filtering and full keyboard support.
+
+📖 **Docs & live examples:** https://next-quasar-qhierarchy.netlify.app/
+
+## Features
+
+- **Virtual scrolling** (`virtual-scroll`): 100,000+ rows, only the visible ones are rendered
+- **Selection** (`selection="single" | "multiple"`, `v-model:selected`): cascading tri-state checkboxes, or `strict-selection`
+- **Lazy loading** (`lazy: true` nodes + `@lazy-load`): load children on demand, with loading and retry
+- **Flat or nested data**: nested `children`, or self-referential `id` / `parentId` rows via `parent-key`
+- **Sorting** at every level: text, `number`, `date` or custom comparators
+- **Filtering** that keeps ancestors visible and auto-expands them
+- **Controlled expansion**: `v-model:expanded`, `expandAll()`, `collapseAll()`, `expandToLevel()`…
+- **Keyboard & accessibility**: WAI-ARIA treegrid, arrow keys, Home/End, Space/Enter
+- **Slots** for rows (`body`), cells (`cell-[name]`), `header`, `footer` and `no-data`
+- **Never mutates your data or columns**
 
 ## Install
 
-To add this App Extension to your Quasar application, run the following (in your Quasar app folder):
+### Quasar CLI (app extension)
 
 ```bash
 quasar ext add qhierarchy
 ```
 
-# Uninstall
-To remove this App Extension from your Quasar application, run the following (in your Quasar app folder):
+Works with `@quasar/app-vite` v1–v3 and `@quasar/app-webpack` v3–v4. `quasar describe QHierarchy` prints the API.
 
+### Vue plugin
+
+```bash
+npm install quasar-ui-qhierarchy
 ```
-quasar ext remove qhierarchy
+
+```js
+import QHierarchyPlugin from 'quasar-ui-qhierarchy'
+import 'quasar-ui-qhierarchy/dist/index.css'
+
+app.use(QHierarchyPlugin)
 ```
 
+### UMD
 
-# Defining the columns
+```html
+<link href="https://cdn.jsdelivr.net/npm/quasar-ui-qhierarchy/dist/index.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/quasar-ui-qhierarchy/dist/index.umd.min.js"></script>
+<!-- app.use(qhierarchy) -->
+```
 
+## Usage
 
-    [
-        {
-            name: 'label',
-            label: 'Label',
-            align: 'left',
-            field: 'label',
-            // (optional) tell QHierarchy you want this column sortable
-            sortable: true
-        },
-        {
-            name: 'Description',
-            label: 'Description',
-            sortable: true,
-            field: 'description',
-            align: 'center',
-        },
-        {
-            name: 'note',
-            label: 'Note',
-            sortable: true,
-            field: 'note',
-            align: 'left',
-        }
-    ],
+```vue
+<template>
+  <q-hierarchy
+    :columns="columns"
+    :data="data"
+    node-key="id"
+    selection="multiple"
+    v-model:selected="selected"
+  />
+</template>
 
-     
-# Defining Data
+<script setup>
+import { ref } from 'vue'
 
-     [
-            {
-                label: "Node 1",
-                description: "Node 1 description",
-                note: "Node 1 note",
-                children: [
-                    {
-                        label: "Node 1.1",
-                        description: "Node 1.1 description",
-                        note: "Node 1.1 note",
-                    },
-                    {
-                        label: "Node 1.2",
-                        description: "Node 1.2 description",
-                        note: "Node 1.2 note",
-                        children: [
-                            {
-                                label: "Node 1.2.1",
-                                description: "Node 1.2.1 description",
-                                note: "Node 1.2.1 note",
-                            },
-                            {
-                                label: "Node 1.2.2",
-                                description: "Node 1.2.2 description",
-                                note: "Node 1.2.2 note",
-                            }
-                        ],
-                    }
-                ],
-        }
-     ]
+const columns = [
+  { name: 'label', label: 'Label', field: 'label', align: 'left', sortable: true },
+  { name: 'description', label: 'Description', field: 'description', sortable: true, filterable: true },
+  { name: 'size', label: 'Size', field: 'size', align: 'right', sortable: true, sortingType: 'number' }
+]
 
-# Source
+const data = [
+  {
+    id: 1,
+    label: 'Node 1',
+    description: 'Node 1 description',
+    size: 12,
+    children: [
+      { id: 2, label: 'Node 1.1', description: 'Node 1.1 description', size: 4 },
+      { id: 3, label: 'Node 1.2', description: 'Node 1.2 description', size: 8 }
+    ]
+  }
+]
 
-can be found [here](https://github.com/pratik227/quasar-qhierarchy).
+const selected = ref([])
+</script>
+```
 
-# Docs
+Upgrading from v1? See the [migration guide](https://next-quasar-qhierarchy.netlify.app/docs/migration).
 
-can be found [here](https://next-quasar-qhierarchy.netlify.app/).
+## Repository
 
-# Demo (source) Project.
+| Folder | Package |
+| --- | --- |
+| [`ui/`](ui) | `quasar-ui-qhierarchy`: the component (Vue plugin, ESM / CJS / UMD builds) |
+| [`app-extension/`](app-extension) | `quasar-app-extension-qhierarchy`: the Quasar CLI app extension |
+| [`demo/`](demo) | Docs site and playground (Quasar CLI + Vite), renders the local `ui/` sources |
 
-can be found [here](https://github.com/pratik227/quasar-qhierarchy/tree/next/demo).
+```bash
+# docs / playground (Node 22.22+)
+cd demo && npm install && npm run dev
 
-# Sponsors
+# build the UI package into ui/dist
+cd ui && npm install && npm run build
+```
+
+## Sponsors
 
 <p align="center">
   <a href="https://github.com/pratik227/static/blob/main/sponsors.svg">
@@ -103,12 +117,14 @@ can be found [here](https://github.com/pratik227/quasar-qhierarchy/tree/next/dem
   </a>
 </p>
 
-# Support
+## Support
 
 If this helped you in any way, you can contribute to this project for long term survival by supporting me:
 
 ### [💜 Support my open-source work on GitHub](https://github.com/sponsors/pratik227)
 
-Be sure to check out my sponsor page.
-
 Thank you so much!!!
+
+## License
+
+MIT (c) pratikpatelpp802@gmail.com

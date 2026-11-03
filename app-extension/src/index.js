@@ -3,33 +3,82 @@
  * (runs on each dev/build)
  *
  * Docs: https://quasar.dev/app-extensions/development-guide/index-api
- * API: https://github.com/quasarframework/quasar/blob/master/app/lib/app-extension/IndexAPI.js
+ *
+ * Written as CommonJS on purpose: every Quasar CLI generation can load it.
+ * The older CLIs require() it and the ESM-based ones import() it.
+ *
+ *   @quasar/app-vite      v1, v2, v3
+ *   @quasar/app-webpack   v3, v4   (and the legacy @quasar/app v3)
  */
 
-function extendConf(conf, api) {
-    // register our boot file
-    conf.boot.push('~quasar-app-extension-qhierarchy/src/boot/register.js')
+const UI_PACKAGE = 'quasar-ui-qhierarchy'
+const AE_PACKAGE = 'quasar-app-extension-qhierarchy'
 
-    if (api.hasVite !== true) {
-        // make sure app extension files & ui package gets transpiled
-        conf.build.transpileDependencies.push(/quasar-app-extension-qhierarchy[\\/]src/)
-    }
+/**
+ * @quasar/app-vite v1/v2 and @quasar/app-webpack v3/v4 expose
+ * api.hasVite / api.hasWebpack; @quasar/app-vite v3 dropped them.
+ */
+function isVite (api) {
+  if (api.hasVite === true) return true
+  if (api.hasWebpack === true) return false
+  return api.hasPackage('@quasar/app-vite') === true
+}
+
+function pushUnique (list, entry) {
+  if (list.includes(entry) === false) {
+    list.push(entry)
+  }
+}
+
+function extendConf (conf, api) {
+  // register our boot file (it installs the QHierarchy component)
+  conf.boot = conf.boot || []
+  pushUnique(conf.boot, `~${AE_PACKAGE}/src/boot/register.js`)
+
+  if (isVite(api) === false) {
+    // webpack: make sure the AE and UI sources get transpiled.
+    // @quasar/app-webpack v4 renamed build.transpileDependencies
+    // to build.webpackTranspileDependencies
+    conf.build = conf.build || {}
+    const key = Array.isArray(conf.build.webpackTranspileDependencies) || api.hasPackage('@quasar/app-webpack', '>=4.0.0-0')
+      ? 'webpackTranspileDependencies'
+      : 'transpileDependencies'
+
+    conf.build[key] = conf.build[key] || []
+    conf.build[key].push(
+      new RegExp(`${AE_PACKAGE}[\\\\/]src`),
+      new RegExp(`${UI_PACKAGE}[\\\\/]src`)
+    )
+  }
+}
+
+function extendViteConf (viteConf) {
+  // serve the UI sources as-is (plugin-vue compiles the SFC) instead of
+  // pre-bundling them, so they share the app's single Quasar instance
+  viteConf.optimizeDeps = viteConf.optimizeDeps || {}
+  viteConf.optimizeDeps.exclude = viteConf.optimizeDeps.exclude || []
+  pushUnique(viteConf.optimizeDeps.exclude, UI_PACKAGE)
 }
 
 module.exports = function (api) {
-    // Quasar compatibility check; you may need
-    // hard dependencies, as in a minimum version of the "quasar"
-    // package or a minimum version of "@quasar/app" CLI
-    api.compatibleWith('quasar', '^2.0.0')
+  api.compatibleWith('quasar', '^2.0.0')
 
-    if (api.hasVite === true) {
-        api.compatibleWith('@quasar/app-vite', '^1.0.0 || ^2.0.0-beta.1')
-    } else {
-        api.compatibleWith('@quasar/app', '^3.0.0')
-    }
-    // Uncomment the line below if you provide a JSON API for your component
-    // api.registerDescribeApi('QHierarchy', '~quasar-ui-qhierarchy/src/components/QHierarchy.json')
+  if (isVite(api) === true) {
+    api.compatibleWith('@quasar/app-vite', '^1.0.0 || ^2.0.0 || ^3.0.0')
+  }
+  else if (api.hasPackage('@quasar/app-webpack') === true) {
+    api.compatibleWith('@quasar/app-webpack', '^3.0.0 || ^4.0.0')
+  }
+  else {
+    api.compatibleWith('@quasar/app', '^3.0.0')
+  }
 
-    // We extend /quasar.conf.js
-    api.extendQuasarConf(extendConf)
+  // `quasar describe QHierarchy`
+  api.registerDescribeApi('QHierarchy', `~${UI_PACKAGE}/src/components/QHierarchy.json`)
+
+  api.extendQuasarConf(extendConf)
+
+  if (isVite(api) === true && typeof api.extendViteConf === 'function') {
+    api.extendViteConf(extendViteConf)
+  }
 }

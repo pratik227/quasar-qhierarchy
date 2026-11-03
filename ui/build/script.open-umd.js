@@ -1,6 +1,11 @@
-const { resolve } = require('path')
-const open = require('open')
+const { resolve } = require('node:path')
+const { exec } = require('node:child_process')
 
-open(
-  resolve(__dirname, '../umd-test.html')
-)
+const file = resolve(__dirname, '../umd-test.html')
+const command = process.platform === 'darwin'
+  ? 'open'
+  : (process.platform === 'win32' ? 'start ""' : 'xdg-open')
+
+exec(`${command} "${file}"`, err => {
+  if (err) console.log(`Open ${file} in your browser.`)
+})
